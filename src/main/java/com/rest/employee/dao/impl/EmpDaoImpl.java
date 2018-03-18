@@ -7,7 +7,6 @@ import com.rest.employee.model.Employee;
 import com.rest.employee.model.dto.EmployeeDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
@@ -28,7 +27,7 @@ public class EmpDaoImpl implements EmpDao {
                     .setParameter("name", name)
                     .getSingleResult();
         } catch (NoResultException noResult) {
-            throw new DaoException(HttpStatus.NOT_FOUND, "Employee with given id does not exists", noResult.getCause());
+            throw new DaoException("Employee with given id does not exists");
         }
     }
 
@@ -55,8 +54,7 @@ public class EmpDaoImpl implements EmpDao {
             entityManager.persist(employeeToBeSaved);
             return employeeDto;
         } catch (EntityExistsException | NoResultException ex) {
-            throw new DaoException(HttpStatus.CONFLICT, "Employee with given id already exists or department's id is wrong",
-                    ex.getCause());
+            throw new DaoException("Employee with given id already exists or department's id is wrong");
         }
     }
 
@@ -66,7 +64,7 @@ public class EmpDaoImpl implements EmpDao {
             Employee employee = entityManager.getReference(Employee.class, id);
             entityManager.remove(employee);
         } catch (EntityNotFoundException ex) {
-            throw new DaoException(HttpStatus.NOT_FOUND, "Employee with given id does not exists", ex.getCause());
+            throw new DaoException("Employee with given id does not exists");
         }
     }
 }

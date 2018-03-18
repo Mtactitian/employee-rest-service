@@ -7,8 +7,8 @@ import org.springframework.http.HttpStatus;
 public class ServiceException extends RuntimeException {
     private HttpStatus httpStatus;
 
-    public ServiceException(DaoException exception) {
-        super(exception.getMessage(), exception.getCause());
-        this.httpStatus = exception.getHttpStatus();
+    public ServiceException(HttpStatus httpStatus, String message) {
+        super(message);
+        this.httpStatus = httpStatus;
     }
 }
