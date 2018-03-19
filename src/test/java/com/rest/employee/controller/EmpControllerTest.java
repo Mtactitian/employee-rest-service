@@ -16,7 +16,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class EmployeeControllerTest {
+public class EmpControllerTest {
 
     private static final int EMPLOYEE_ID = 10;
     private static final String EMPLOYEE_NAME = "Geralt of Rivia";
@@ -28,7 +28,7 @@ public class EmployeeControllerTest {
     public void setUp() {
         empService = mock(EmpService.class);
 
-        mockMvc = MockMvcBuilders.standaloneSetup(new EmployeeController(empService))
+        mockMvc = MockMvcBuilders.standaloneSetup(new EmpController(empService))
                 .setControllerAdvice(new RestExceptionHandler())
                 .build();
         initMocks(this);
@@ -52,7 +52,6 @@ public class EmployeeControllerTest {
     @Test
     public void getByNameNotFoundTest() throws Exception {
         final String errorMessage = "Not Exists";
-        Employee expectedEmployee = createEmployee();
 
         when(empService.getEmployeeByName(EMPLOYEE_NAME))
                 .thenThrow(new ServiceException(HttpStatus.NOT_FOUND, errorMessage));
@@ -71,7 +70,7 @@ public class EmployeeControllerTest {
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         verifyNoMoreInteractions(empService);
     }
 

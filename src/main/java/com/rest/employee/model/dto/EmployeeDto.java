@@ -1,10 +1,7 @@
 package com.rest.employee.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Digits;
@@ -17,6 +14,7 @@ import java.sql.Date;
 @Getter
 @NoArgsConstructor //needed For JackSon
 @ToString
+@Setter
 public class EmployeeDto {
 
     @NotNull

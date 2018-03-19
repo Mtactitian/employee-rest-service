@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-public class EmployeeController {
+public class EmpController {
 
-    private Logger logger = LoggerFactory.getLogger(EmployeeController.class);
+    private Logger logger = LoggerFactory.getLogger(EmpController.class);
 
     private EmpService empService;
 
-    public EmployeeController(EmpService empService) {
+    public EmpController(EmpService empService) {
         this.empService = empService;
     }
 

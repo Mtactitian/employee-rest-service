@@ -38,7 +38,7 @@ public class Employee {
     @Column(name = "comm")
     private Integer commission;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "deptno")
     @JsonIgnore
     private Department department;
