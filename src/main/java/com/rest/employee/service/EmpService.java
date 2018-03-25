@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class EmpService {
@@ -41,5 +43,9 @@ public class EmpService {
         } catch (DaoException ex) {
             throw new ServiceException(HttpStatus.NOT_FOUND, ex.getMessage());
         }
+    }
+
+    public List getAllEmpNamesIds(){
+        return empDao.getAllNamesAndIds();
     }
 }

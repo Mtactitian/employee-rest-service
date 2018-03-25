@@ -4,16 +4,19 @@ import com.rest.employee.model.dto.EmployeeDto;
 import com.rest.employee.service.EmpService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+
+import static java.util.Collections.singletonMap;
 
 @RestController
 public class EmpController {
-
     private Logger logger = LoggerFactory.getLogger(EmpController.class);
 
     private EmpService empService;
@@ -45,5 +48,15 @@ public class EmpController {
     public ResponseEntity deleteEmployee(@PathVariable Integer id) {
         empService.deleteEmployee(id);
         return ResponseEntity.noContent().build();
+    }
+
+    //TODO: replace it latter with JPQL
+    @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getNamesAndIds() {
+
+        List employers = empService.getAllEmpNamesIds();
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(singletonMap("employers", employers));
     }
 }

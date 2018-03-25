@@ -1,6 +1,5 @@
 package com.rest.employee;
 
-import com.rest.employee.dao.EmpDao;
 import org.apache.commons.logging.LogFactory;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.boot.CommandLineRunner;
@@ -9,16 +8,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 @SpringBootApplication
 public class EmployeeApplication extends SpringBootServletInitializer implements CommandLineRunner {
 
     private final DataSource dataSource;
 
-    private final EmpDao empDao;
-
-    public EmployeeApplication(DataSource dataSource, EmpDao empDao) {
+    public EmployeeApplication(DataSource dataSource) {
         this.dataSource = dataSource;
-        this.empDao = empDao;
     }
 
     public static void main(String[] args) {
@@ -35,5 +34,6 @@ public class EmployeeApplication extends SpringBootServletInitializer implements
         logger = LogFactory.getLog(EmployeeApplication.class);
 
         logger.info("USING " + dataSource.getUrl() + " datasource url");
+
     }
 }

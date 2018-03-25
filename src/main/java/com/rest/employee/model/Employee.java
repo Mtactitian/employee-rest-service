@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "EMP")
@@ -30,7 +30,7 @@ public class Employee {
     private Integer managerId;
 
     @Column(name = "hiredate")
-    private Date hireDate;
+    private LocalDate hireDate;
 
     @Column(name = "sal")
     private Double salary;

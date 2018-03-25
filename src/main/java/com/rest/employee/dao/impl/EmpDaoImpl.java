@@ -5,11 +5,15 @@ import com.rest.employee.exception.DaoException;
 import com.rest.employee.model.Department;
 import com.rest.employee.model.Employee;
 import com.rest.employee.model.dto.EmployeeDto;
+import org.hibernate.type.StandardBasicTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
+import java.util.List;
+
+import static org.hibernate.transform.Transformers.aliasToBean;
 
 @Repository
 public class EmpDaoImpl implements EmpDao {
@@ -66,5 +70,19 @@ public class EmpDaoImpl implements EmpDao {
         } catch (EntityNotFoundException ex) {
             throw new DaoException("Employee with given id does not exists");
         }
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public List getAllNamesAndIds() {
+        return entityManager.
+                createNativeQuery("SELECT e.EMPNO AS \"id\", e.ENAME AS \"name\", e.DEPTNO AS \"deptId\" FROM EMP e " +
+                        "INNER JOIN DEPT d ON e.DEPTNO = d.DEPTNO")
+                .unwrap(org.hibernate.query.NativeQuery.class)
+                .addScalar("id", StandardBasicTypes.INTEGER)
+                .addScalar("name", StandardBasicTypes.STRING)
+                .addScalar("deptId", StandardBasicTypes.INTEGER)
+                .setResultTransformer(aliasToBean(EmployeeDto.class))
+                .list();
     }
 }

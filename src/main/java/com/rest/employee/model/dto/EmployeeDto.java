@@ -1,5 +1,6 @@
 package com.rest.employee.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
@@ -7,16 +8,19 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
-import java.sql.Date;
+import java.io.Serializable;
+import java.time.LocalDate;
 
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 @NoArgsConstructor //needed For JackSon
 @ToString
 @Setter
-public class EmployeeDto {
+@Builder
+public class EmployeeDto implements Serializable {
 
+    private static final long serialVersionUID = -5417448339203137166L;
     @NotNull
     @Digits(integer = 4, fraction = 0)
     private Integer id;
@@ -31,7 +35,8 @@ public class EmployeeDto {
     private Integer managerId;
 
     @Past
-    private Date hireDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    private LocalDate hireDate;
 
     @Digits(integer = 7, fraction = 2)
     private Double salary;
