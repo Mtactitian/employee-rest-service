@@ -149,6 +149,41 @@
 
     <profiles>
         <profile>
+            <id>deploy</id>
+            <repositories>
+                <repository>
+                    <id>apache-releases</id>
+                    <name>Apache Releases</name>
+                    <url>https://repository.apache.org/content/repositories/releases/</url>
+                </repository>
+            </repositories>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.tomcat.maven</groupId>
+                        <artifactId>tomcat7-maven-plugin</artifactId>
+                        <version>2.2</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>undeploy</goal>
+                                    <goal>deploy</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <failOnError>true</failOnError>
+                            <url>http://localhost:8080/manager/text</url>
+                            <server>Tomcat</server>
+                            <path>/emp</path>
+                            <contextReloadable>true</contextReloadable>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
             <id>private-network</id>
             <properties>
                 <datasource.url>jdbc:oracle:thin:@localhost:1521:ORCL</datasource.url>

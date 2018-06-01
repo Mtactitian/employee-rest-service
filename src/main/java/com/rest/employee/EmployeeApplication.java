@@ -1,7 +1,9 @@
 package com.rest.employee;
 
+import lombok.NoArgsConstructor;
 import org.apache.commons.logging.LogFactory;
 import org.apache.tomcat.jdbc.pool.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,13 +14,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @SpringBootApplication
+@NoArgsConstructor
 public class EmployeeApplication extends SpringBootServletInitializer implements CommandLineRunner {
 
-    private final DataSource dataSource;
-
-    public EmployeeApplication(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
+    @Autowired
+    private DataSource dataSource;
 
     public static void main(String[] args) {
         SpringApplication.run(EmployeeApplication.class, args);
