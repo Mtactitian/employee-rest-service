@@ -35,5 +35,7 @@ public class EmployeeApplication extends SpringBootServletInitializer implements
 
         logger.info("USING " + dataSource.getUrl() + " datasource url");
 
+        logger.info("TRIGGERING JENKINS");
+
     }
 }
