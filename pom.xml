@@ -174,7 +174,7 @@
                         </executions>
                         <configuration>
                             <failOnError>true</failOnError>
-                            <url>http://localhost:8080/manager/text</url>
+                            <url>http://192.168.1.6:8080/manager/text</url>
                             <server>Tomcat</server>
                             <path>/emp</path>
                             <contextReloadable>true</contextReloadable>
@@ -186,7 +186,7 @@
         <profile>
             <id>private-network</id>
             <properties>
-                <datasource.url>jdbc:oracle:thin:@localhost:1521:ORCL</datasource.url>
+                <datasource.url>jdbc:oracle:thin:@192.168.1.6:1521:ORCL</datasource.url>
             </properties>
         </profile>
         <profile>
@@ -224,6 +224,7 @@
     </profiles>
 
     <build>
+        <finalName>${artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
